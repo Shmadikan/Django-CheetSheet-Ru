@@ -73,7 +73,7 @@ Entry.objects.exclude(**kwargs) - всё что не подошло под ус�
 - name__startswith="ben" - пон
 - name__endswith="lol"
 Кроме условий, мы можем например делать таким образом неявный join:  
-**GoblinCave.objects.filter(model_name__field_name=?)**, условие аналогично join с model_name и отбору по полю. Глубина неограничена
+**GoblinCave.objects.filter(model_name__field_name=?)**, условие аналогично join с model_name и отбору по полю. Глубина неограничена, также join работает двусторонне
 
 
   
