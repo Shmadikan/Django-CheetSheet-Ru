@@ -51,6 +51,28 @@ python manage.py createsuperuser
 admin.site.register(GoblinCave)
 admin.site.register(Goblin)
 ```
+Мы можем объявлять классы моделей админок и добавлять им нужные поля для конфигурирования:  
+```python
+list_display = ('id', 'doctor', 'post_processed_review', 'ip_address', 'user', 'review_date_time', 'original_review', 'get_speciality')
+list_editable = ('post_processed_review', 'ip_address', 'user', 'doctor')
+raw_id_fields = ('doctor',) # делает возможность редактирования через строку, а не select
+readonly_fields = ('review_date_time', 'original_review')
+search_fields = ('review_date_time', 'original_review', 'ip_address', 'doctor__name', 'user__username')
+list_per_page = 50
+```
+Мы также можем объявлять свои столбцы, для этого нужно определить метод, и указать его в отображении:  
+```python
+list_display = ('id', 'doctor', 'post_processed_review', 'ip_address', 'user', 'review_date_time', 'original_review', 'get_speciality')
+    list_editable = ('post_processed_review', 'ip_address', 'user', 'doctor')
+    raw_id_fields = ('doctor',)
+    readonly_fields = ('review_date_time', 'original_review')
+    search_fields = ('review_date_time', 'original_review', 'ip_address', 'doctor__name', 'user__username')
+    list_per_page = 50
+```
+
+Также естественным подходом является переопределение методов, и других полей, если мы хотим изменить стандартное поведение админки. К примеру:  
+- get_queryset() - чтобы изменить с какими объектами будет работа
+- formfield_overrides - dict, где каждому объекту сопоставляется какой у него виджет
 
 ## ORM
 При использовании методов orm (например all), возвращается query_set, с отобранными по условию объектами.  
